@@ -1,0 +1,65 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.1.8.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'io.pivotal.services.dataTx'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch'
+	compile group: 'org.springframework.batch', name: 'spring-batch-infrastructure', version: '4.2.0.RELEASE'
+
+	runtimeOnly 'org.hsqldb:hsqldb'
+	
+	compile group: 'io.pivotal.services.dataTx', name: 'dataTx-geode-extensions-core' , version: '2.1.1'
+	compile group: 'io.pivotal.services.dataTx', name: 'dataTx-spring-batch-geode-extensions', version: '0.0.1-SNAPSHOT'
+	//compile group: 'org.springframework.geode', name: 'spring-geode-starter', version: '1.2.1.RELEASE'
+
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.cloud:spring-cloud-stream-binder-kafka')
+	//compile('org.springframework.cloud.stream.app:spring-cloud-starter-stream-source-gemfire')
+	compile group: 'com.github.nyla-solutions', name: 'nyla.solutions.core', version: '1.2.5'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'javax.cache', name: 'cache-api'
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-kafka-streams'
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-stream-kafka'
+	compile group: 'org.springframework.integration', name: 'spring-integration-core'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+dependencyManagement {
+	imports {
+		//mavenBom "org.springframework.cloud.stream.app:gemfire-app-dependencies:2.1.2.RELEASE" 
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE'
+	}
+}
