@@ -3,8 +3,10 @@ package io.pivotal.services.dataTx.geodekakfaconnector;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
-import org.springframework.data.gemfire.config.annotation.EnableStatistics;
 
+/**
+ * @author Gregory Green
+ */
 @SpringBootApplication
 @ClientCacheApplication
 public class GeodeKakfaConnectorApplication {

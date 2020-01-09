@@ -21,38 +21,13 @@ import java.util.Calendar;
 @Service
 public class JobRestController
 {
-    @Autowired
-    private TestGeodeRepository repository;
 
-    @Autowired
-    private Source source;
+
+    //@Autowired
+    //sprivate Source source;
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
-
-
-    @PostMapping("test")
-    public void save(@RequestBody TestEntity testEntity)
-    {
-        repository.save(testEntity);
-    }
-
-    @GetMapping("test/{id}")
-    public TestEntity getFindById(@PathVariable String id)
-    {
-        return repository.findById(id).get();
-
-    }
-
-    @Cacheable("USERS")
-    @GetMapping("saveUser/{email}")
-    public UserEntity saveUser(@PathVariable String email)
-    {
-        System.out.println("********* SAVE ************");
-        UserEntity user = new UserEntity();
-        user.setEmail(email);
-        return user;
-    }
 
     @Autowired
     JobLauncher jobLauncher;
@@ -66,7 +41,7 @@ public class JobRestController
     @Qualifier("fromGeodePdxToKakfaStep")
     Step fromGeodePdxToKakfaStep;
 
-    @GetMapping("startGeodePdxToKakfaJob/s{geodeRegion}/{valueClassName}/{kafkaTopic}")
+    @GetMapping("startGeodePdxToKakfaJob/{geodeRegion}/{valueClassName}/{kafkaTopic}")
     public void startGeodePdxToKakfaJob(@PathVariable String geodeRegion,
                                         @PathVariable String valueClassName,
                                         @PathVariable String kafkaTopic) throws Exception{
@@ -95,7 +70,9 @@ public class JobRestController
     @GetMapping("startKakaToGeodePdxJob/{geodeRegion}/{valueClassName}/{kafkaTopic}")
     public void startKakaToGeodePdxJob(@PathVariable String geodeRegion,
                                         @PathVariable String valueClassName,
-                                        @PathVariable String kafkaTopic) throws Exception{
+                                        @PathVariable String kafkaTopic)
+    throws Exception
+    {
 
         JobParametersBuilder b = new JobParametersBuilder()
                 .addString("region",geodeRegion)
