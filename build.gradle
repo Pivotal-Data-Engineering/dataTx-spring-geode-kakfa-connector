@@ -36,14 +36,19 @@ dependencies {
 		exclude group: 'org.springframework.geode'
 
 	}
-	compile('io.pivotal.services.dataTx:dataTx-spring-batch-geode-extensions:0.0.1-SNAPSHOT')
+	/*compile('io.pivotal.services.dataTx:dataTx-spring-batch-geode-extensions:0.0.1-SNAPSHOT')
 	{
 		exclude group: 'org.apache.logging.log4j'
 		exclude group: 'org.apache.geode'
 		exclude group: 'io.pivotal.gemfire'
 		exclude group: 'org.springframework.geode'
-	}
-	runtimeOnly 'org.hsqldb:hsqldb'
+	}*/
+	
+	//runtimeOnly 'org.hsqldb:hsqldb'
+	// https://mvnrepository.com/artifact/com.h2database/h2
+	runtimeOnly 'com.h2database:h2'
+	//, version: '1.4.200'
+
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch'

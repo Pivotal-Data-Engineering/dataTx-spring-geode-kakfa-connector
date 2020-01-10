@@ -3,7 +3,6 @@ package io.pivotal.services.dataTx.geodekakfaconnector;
 import io.pivotal.services.dataTx.geode.client.GeodeClient;
 import io.pivotal.services.dataTx.geode.serialization.PDX;
 import io.pivotal.services.dataTx.geode.serialization.SerializationPdxEntryWrapper;
-import io.pivotal.services.dataTx.spring.batch.geode.GeodePdxItemReader;
 import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.pdx.PdxInstance;
