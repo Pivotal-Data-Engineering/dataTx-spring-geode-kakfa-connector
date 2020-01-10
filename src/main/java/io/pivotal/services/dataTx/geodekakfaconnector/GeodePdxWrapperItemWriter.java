@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Item writer that expected SerializationPdxEntryWrapper
+ * to writer into a Apache Geode region.
+ *
  * @author Gregory Green
  */
 public class GeodePdxWrapperItemWriter implements ItemWriter<SerializationPdxEntryWrapper>
@@ -23,6 +26,11 @@ public class GeodePdxWrapperItemWriter implements ItemWriter<SerializationPdxEnt
         this.region = region;
     }//-------------------------------------------
 
+    /**
+     * Write records into the Apache Geode
+     * @param items the serialization PDX entry wrappers collection
+     * @throws Exception when an unknown exception occurs
+     */
     @Override
     public void write(List<? extends SerializationPdxEntryWrapper> items)
     throws Exception
@@ -49,6 +57,5 @@ public class GeodePdxWrapperItemWriter implements ItemWriter<SerializationPdxEnt
            e.printStackTrace();
            throw e;
        }
-
-    }
+    }//-------------------------------------------
 }

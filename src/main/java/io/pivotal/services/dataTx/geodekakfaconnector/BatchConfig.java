@@ -4,7 +4,6 @@ import io.pivotal.services.dataTx.geode.client.GeodeClient;
 import io.pivotal.services.dataTx.geode.serialization.PDX;
 import io.pivotal.services.dataTx.geode.serialization.SerializationPdxEntryWrapper;
 import io.pivotal.services.dataTx.spring.batch.geode.GeodePdxItemReader;
-import nyla.solutions.core.data.MapEntry;
 import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.pdx.PdxInstance;
@@ -27,7 +26,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  *
@@ -44,8 +42,7 @@ public class BatchConfig
      */
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
-    @Value("${spring.kafka.consumer.group-id}")
-    private String kakfaGroup;
+
 
     @Value("${spring.kafka.consumer.bootstrap-servers}")
     private String kakfaBootstrapServers;
@@ -78,9 +75,13 @@ public class BatchConfig
     @StepScope
     @Bean
     public KafkaGeodePdxItemReader kafkaItemReader(
-            @Value("#{jobParameters['topic']}") String topicName)
+            @Value("#{jobParameters['topic']}")
+                    String topicName,
+            @Value("#{jobParameters['kafkaGroupId']}")
+                    String kakfaGroup)
     {
-        KafkaGeodePdxItemReader itemReader = new KafkaGeodePdxItemReader(kakfaBootstrapServers,
+        KafkaGeodePdxItemReader itemReader = new KafkaGeodePdxItemReader
+                (kakfaBootstrapServers,
                 topicName,
                 kakfaGroup);
 

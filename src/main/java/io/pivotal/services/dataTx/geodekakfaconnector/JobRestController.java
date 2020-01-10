@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Calendar;
 
 /**
+ *
+ * REST controller to managed the Spring Batch Jobs
  * @author Gregory Green
  */
 @RestController("/jobs")
 @Service
 public class JobRestController
 {
-
-
-    //@Autowired
-    //sprivate Source source;
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -65,18 +63,21 @@ public class JobRestController
      * @param geodeRegion the Geode data store name
      * @param valueClassName the region value object type
      * @param kafkaTopic the kafka Topic
+     * @param  kafkaGroupId the kakfa topic group ID
      * @throws Exception when an Internal error occurs
      */
-    @GetMapping("startKakaToGeodePdxJob/{geodeRegion}/{valueClassName}/{kafkaTopic}")
+    @GetMapping("startKakaToGeodePdxJob/{geodeRegion}/{valueClassName}/{kafkaTopic}/{kafkaGroupId}")
     public void startKakaToGeodePdxJob(@PathVariable String geodeRegion,
                                         @PathVariable String valueClassName,
-                                        @PathVariable String kafkaTopic)
+                                        @PathVariable String kafkaTopic,
+                                       @PathVariable String kafkaGroupId)
     throws Exception
     {
 
-        JobParametersBuilder b = new JobParametersBuilder()
+        JobParametersBuilder jobParametersBuilder = new JobParametersBuilder()
                 .addString("region",geodeRegion)
                 .addString("topic",kafkaTopic)
+                .addString("kafkaGroupId",kafkaGroupId)
                 .addString("valueClassName",valueClassName)
                 .addDate("time", Calendar.getInstance().getTime());
 
@@ -85,6 +86,6 @@ public class JobRestController
                 .flow(this.fromKakfaToGeodePdxStep)
                 .end().build();
 
-        jobLauncher.run(job,b.toJobParameters() );
-    }
+        jobLauncher.run(job,jobParametersBuilder.toJobParameters() );
+    }//-------------------------------------------
 }

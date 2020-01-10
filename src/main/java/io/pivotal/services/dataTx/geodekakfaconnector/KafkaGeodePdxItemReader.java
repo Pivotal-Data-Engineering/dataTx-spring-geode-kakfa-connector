@@ -28,7 +28,7 @@ public class KafkaGeodePdxItemReader
     private String valueDeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
     private ConsumerRecords<String,String> records = null;
     private KafkaConsumer<String,String> kafkaConsumer = null;
-    private Iterator<ConsumerRecord<String,String>> iterator = null;
+    Iterator<ConsumerRecord<String,String>> iterator = null;
 
     private long timeoutMs = 1000*10; //10 seconds
 
@@ -71,8 +71,11 @@ public class KafkaGeodePdxItemReader
         Properties props = new Properties();
         props.put("bootstrap.servers", bootstrapServers);
         props.put("group.id", groupId);
+        props.put("client.id","kakaGeodeConnector");
         props.put("key.deserializer",keyDeserializer);
         props.put("value.deserializer",valueDeserializer);
+        props.put("enable.auto.commit","false");
+        props.put("auto.offset.reset","earliest");
 
         kafkaConsumer = new KafkaConsumer<String, String>(props);
 
@@ -95,7 +98,7 @@ public class KafkaGeodePdxItemReader
     {
         synchronized (kafkaConsumer)
         {
-            kafkaConsumer.commitAsync();
+          //  kafkaConsumer.commitAsync();
         }
     }//-------------------------------------------
 
