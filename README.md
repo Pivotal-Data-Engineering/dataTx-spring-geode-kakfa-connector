@@ -4,36 +4,16 @@ This project is a BETA Spring Boot application that moves JSON based data to and
  [Apache Geode](https://geode.apache.org/) and [Apache Kafka](https://kafka.apache.org/).
  
  
+ The initial purpose was to support moving data from [Pivotal GemFire](https://pivotal.io/pivotal-gemfire) to 
+ [Pivotal Cloud Cache/PCC](https://pivotal.io/pivotal-gemfire) or between PCC clusters using Apache Kafka as a transportation mechanism.
+
+
+ 
 This application also using [Spring Batch](https://spring.io/projects/spring-batch), [Spring Data Geode](https://spring.io/projects/spring-data-geode), [Spring Kafka](https://spring.io/projects/spring-kafka), 
  [Spring Security](https://spring.io/projects/spring-security).
 
 
-# Spring Batch Database
 
-
-An in-memory H2 database is configured by default.
-
-username:sa 
-password:<empty>
- 
-You can change those parameters by adding the 
-following spring properties
- 
-
-    spring.datasource.url=jdbc:h2:mem:testdb
-    spring.datasource.driverClassName=org.h2.Driver
-    spring.datasource.username=sa
-    spring.datasource.password=password
-    spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-
-For H2
-
-You can change also uses a file-based storage by changing the URL
-spring.datasource.url:
-
-    spring.datasource.url=jdbc:h2:file:/data/demo
-
-# Testing
 
 ## Start/Setup Kafka
 
@@ -102,3 +82,45 @@ Sample screen shot to start job to move from Apache Kafka
 to Apache Geode.
 
 ![from Kafka to Geode](docs/images/job-kafka-to-geode.png)
+
+
+# Spring Batch Job Repository Database
+
+## H2 Embbeded Database (DEV only)
+
+An in-memory H2 database is configured by default to store Spring Batch job 
+repository statuses.
+ 
+You can change those parameters by adding the 
+following spring properties
+ 
+
+    spring.datasource.url=jdbc:h2:mem:testdb
+    spring.datasource.driverClassName=org.h2.Driver
+    spring.datasource.username=sa
+    spring.datasource.password=password
+    spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+
+
+You can change also uses a file-based storage by changing the URL
+spring.datasource.url:
+
+    spring.datasource.url=jdbc:h2:file:/data/demo
+
+
+Use the "h2-console" endpoint to access the H2 console
+
+Example
+
+    http://localhost:8080/h2-console
+    
+
+![H2 Login](docs/images/h2_console_login.png)    
+
+See the configuration spring.datasource properties for connection details.
+
+You can query the Spring Batch Job Repository tables to view statuses.
+
+
+![Job Statuses](docs/images/h2_query_jobs.png)
