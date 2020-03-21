@@ -25,11 +25,13 @@ This application also uses [Spring Batch](https://spring.io/projects/spring-batc
 - cd kafka-devOps
 - create file ./setenv.sh (modify the following exports as needed)
 
-    export KAFKA_HOST=localhost
-    export KAFKA_HOME=<install-direct> ex: /devtools/integration/messaging/apacheKafka/kafka_2.11-2.3.0/
-    export CONFIG_DIR=./config
-    export KAFKA_BROKER_PORT=9092
-    export ZOOKEEPER_PORT=2181
+```bash
+      export KAFKA_HOST=localhost
+      export KAFKA_HOME=<install-direct> ex: /devtools/integration/messaging/apacheKafka/kafka_2.11-2.3.0/
+      export CONFIG_DIR=./config
+      export KAFKA_BROKER_PORT=9092
+      export ZOOKEEPER_PORT=2181
+```
 
 - cp -r $KAFKA_HOME/config .
 - cp $KAFKA_HOME/config/zookeeper.properties ./zookeeper.properties
